@@ -1,0 +1,9 @@
+language: node_js
+node_js: stable
+before_install:
+- openssl aes-256-cbc -K $encrypted_24a5b146c580_key -iv $encrypted_24a5b146c580_iv
+  -in id_rsa.enc -out ~/.ssh/id_rsa -d
+- chmod 600 ~/.ssh/id_rsa
+- echo -e "Host 101.200.36.88\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+after_success:
+- scp -o stricthostkeychecking=no -P $PORT test root@www.godi13.com:/home/test
